@@ -1,0 +1,15 @@
+{
+  "name": "pomoderp",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "author": "Ryan Schill",
+  "license": "MIT",
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  }
+}

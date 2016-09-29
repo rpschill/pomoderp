@@ -1,0 +1,112 @@
+body {
+    background-color: #fff;
+    text-align: center;
+}
+
+
+
+.page-header {
+    border-bottom-color: #FFAB91;
+}
+
+#derp {
+    font-style: italic;
+    color: #FF5722;
+}
+
+
+
+.main-timer, .break-timer {
+    display: inline;
+    vertical-align: middle;
+}
+
+#mainctr {
+    padding-top: 15px;   
+}
+
+#pomo-slider {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-block {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn.btn-raised {
+    background-color: #FFAB91;
+}
+
+.btn.btn-raised:not(.btn-link):hover {
+    background-color: #FF7043;
+}
+
+h1.main-timer {
+    font-size: 124px;
+    color: #FF5722;
+}
+
+.ui-widget-content .ui-state-default {
+    background-image: none;
+    background: #FF7043;
+    border: 1px solid #FF5722;
+}
+
+.ui-widget-content .ui-state-default:active {
+    background: #FFAB91;
+}
+
+#break-message {
+    margin-top: 20px;
+    padding-top: 20px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#activated {
+    text-transform: uppercase;
+}
+
+#breakctr {
+    padding-top: 20px
+}
+
+#break-slider {
+    margin-top: 12px;
+}
+
+#brktime {
+    font-size: 60px;
+}
+
+.togglebutton {
+    padding-top: 14px
+}
+
+.togglebutton label input[type=checkbox]:checked + .toggle {
+    background-color: #505050;
+    opacity: 0.7;
+}
+
+.togglebutton label input[type=checkbox]:checked + .toggle:after {
+    background-color: #FF5722;
+}
+
+#success-message-header {
+    font-size: 84px;
+    color: #FF5722;
+}
+
+#success-message-subhead {
+    font-size: 28px;
+    margin-top: 25px;
+}
+
+#dismiss {
+    margin-top: 25px;
+}
