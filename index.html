@@ -7,7 +7,7 @@
         <meta name="description" content="A customizable pomo timer without the domo">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        
+
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -17,26 +17,51 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.css" />
         <link rel="stylesheet" href="style.css">
     </head>
-    
+
     <body>
-        
+
         <div class="container">
-        
+
             <div class="page-header">
                 <h1><strong>pomo</strong><span id="derp">derp</span></h1>
             </div>
-        
-            
-            <div id="app-container">
-                
-                <div id="timectr">
-                    
-                    <h1 id="timer-minutes" class="main-timer">25</h1><h1 class="main-timer">:</h1><h1 id="timer-seconds" class="main-timer">00</h1>
-                    
+
+
+            <div id="auth-container" style="display: none">
+
+                <div id="login-div" style="display: none">
+                    <h2>Login</h2>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="email">
+                        <input type="password" id="login-pass" placeholder="password">
+                        <button type="submit" class="btn" id="login-submit">Submit</button>
+                        <button type="button" class="btn" id="show-register">New user?</button>
+                    </form>
                 </div>
-                    
+
+                <div id="register-div" style="display: none">
+                    <h2>Register User</h2>
+                    <form id="register-form">
+                        <input type="email" id="register-email" placeholder="email">
+                        <input type="password" id="register-password" placeholder="password">
+                        <button type="submit" class="btn" id="register-submit">Submit</button>
+                        <button type="button" class="btn" id="show-login">Already a user?</button>
+                    </form>
+                </div>
+
+            </div> <!-- END Auth container -->
+
+
+            <div id="app-container">
+
+                <div id="timectr">
+
+                    <h1 id="timer-minutes" class="main-timer">25</h1><h1 class="main-timer">:</h1><h1 id="timer-seconds" class="main-timer">00</h1>
+
+                </div>
+
                 <div class="slider" id="pomo-slider"></div>
-                
+
                 <div id="mainctr">
                     <button type="button" class="btn btn-raised btn-block" id="startbt"><i class="material-icons">play_arrow</i></button>
                     <button type="button" class="btn btn-raised btn-block" id="pausebt" style="display: none"><i class="material-icons">pause</i></button>
@@ -48,17 +73,17 @@
                         </label>
                     </div>
                 </div>
-                
+
                 <div id="break-message" style="display: none">
                     <div class="alert alert-warning" id="break-alert">
                         <h2 >Break Time <span id="activated"><strong>Activated!</strong></span></h2>
                     </div>
                 </div>
-                
+
             </div> <!-- END app-container -->
-            
+
             <div id="success-container" style="display: none">
-                
+
                 <h1 id="success-message-header">
                     Congrats!
                 </h1>
@@ -68,11 +93,11 @@
                 <button class="btn btn-raised btn-warning" id="dismiss">
                     It's breaky-break time!
                 </button>
-                
-            </div>
-            
-        </div>
-        
+
+            </div> <!-- END success container -->
+
+        </div> <!-- END main container -->
+
         <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -80,5 +105,5 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.js"></script>
         <script src="app.js"></script>
     </body>
-    
+
 </html>
