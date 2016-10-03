@@ -30,29 +30,29 @@
             <div id="auth-container" style="display: none">
 
                 <div id="login-div" style="display: none">
-                    <h2>Login</h2>
+                    <h3>Login</h3>
                     <form id="login-form">
-                        <input type="email" id="login-email" placeholder="email">
-                        <input type="password" id="login-pass" placeholder="password">
-                        <button type="submit" class="btn" id="login-submit">Submit</button>
-                        <button type="button" class="btn" id="show-register">New user?</button>
+                        <input type="email" id="login-email" placeholder="email" class="form-control">
+                        <input type="password" id="login-pass" placeholder="password" class="form-control">
+                        <button type="submit" class="btn form-control" id="login-submit">Submit</button>
+                        <button type="button" class="btn form-control" id="show-register">New user?</button>
                     </form>
                 </div>
 
-                <div id="register-div" style="display: none">
-                    <h2>Register User</h2>
+                <div id="register-div">
+                    <h3>Register User</h3>
                     <form id="register-form">
-                        <input type="email" id="register-email" placeholder="email">
-                        <input type="password" id="register-password" placeholder="password">
-                        <button type="submit" class="btn" id="register-submit">Submit</button>
-                        <button type="button" class="btn" id="show-login">Already a user?</button>
+                        <input type="email" id="register-email" placeholder="email" class="form-control">
+                        <input type="password" id="register-password" placeholder="password" class="form-control">
+                        <button type="submit" class="btn form-control" id="register-submit">Submit</button>
+                        <button type="button" class="btn form-control" id="show-login">Already a user?</button>
                     </form>
                 </div>
 
             </div> <!-- END Auth container -->
 
 
-            <div id="app-container">
+            <div id="app-container" style="display: none">
 
                 <div id="timectr">
 
@@ -60,7 +60,9 @@
 
                 </div>
 
-                <div class="slider" id="pomo-slider"></div>
+                <div id="slider-view">
+                    <div class="slider" id="pomo-slider"></div>
+                </div>
 
                 <div id="mainctr">
                     <button type="button" class="btn btn-raised btn-block" id="startbt"><i class="material-icons">play_arrow</i></button>
@@ -78,6 +80,10 @@
                     <div class="alert alert-warning" id="break-alert">
                         <h2 >Break Time <span id="activated"><strong>Activated!</strong></span></h2>
                     </div>
+                </div>
+                
+                <div id="sign-out-div">
+                    <button type="button" class="btn btn-small" id="sign-out">Sign Out</button>
                 </div>
 
             </div> <!-- END app-container -->
@@ -98,6 +104,8 @@
 
         </div> <!-- END main container -->
 
+
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

@@ -1,29 +1,33 @@
-/* global $ */
-/* global noUISlider */
+/* globals $ noUISlider firebase */
 
-var APP = APP || {
-
-	initializeApp: function() {
-		// TODO -- Complete initialization method
-		console.log('Initialize app');
-	}
-};
+$(document).ready(function() {
+	
 
 
-APP.auth = {
-	$authDiv: $('#auth-container'),
-	$loginDiv: $('#login-div'),
-	$registerDiv: $('#register-div'),
-}
-
-$(document).ready(function () {
+	var config = {
+	    apiKey: "AIzaSyDuppFzLT1rYOsl3d_TDaztfOOKFrjfKfs",
+	    authDomain: "pomoderp.firebaseapp.com",
+	    databaseURL: "https://pomoderp.firebaseio.com",
+	    storageBucket: "pomoderp.appspot.com",
+	    messagingSenderId: "435710927543"
+	};
 
 	$.material.init();
-
-
-
-
-	}
+	
+	
+	// Login form
+	var $loginForm = $('#login-form');
+	var $loginEmail = $('#login-email').val();
+	var $loginPassword = $('#login-pass').val();
+	var $loginSubmit = $('#login-submit');
+	
+	
+	// Registration form
+	var $registerForm = $('#register-form');
+	var $registerEmail = $('#register-email').val();
+	var $registerPassword = $('#register-pass').val();
+	var $registerSubmit = $('#register-submit');
+	
 
 	var min = 25; // pomodoro timer minutes initialized at 25
 	var sec = 0; // pomodoro timer seconds
@@ -249,4 +253,4 @@ $(document).ready(function () {
 		dismissMessage();
 	});
 
-});
+})();
