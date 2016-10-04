@@ -10,14 +10,13 @@ $(document).ready(function() {
      */
 
 	var config = {
-	    apiKey: "AIzaSyDuppFzLT1rYOsl3d_TDaztfOOKFrjfKfs",
-	    authDomain: "pomoderp.firebaseapp.com",
-	    databaseURL: "https://pomoderp.firebaseio.com",
-	    storageBucket: "pomoderp.appspot.com",
-	    messagingSenderId: "435710927543"
+		apiKey: "AIzaSyDuppFzLT1rYOsl3d_TDaztfOOKFrjfKfs",
+		authDomain: "pomoderp.firebaseapp.com",
+		databaseURL: "https://pomoderp.firebaseio.com",
+		storageBucket: "pomoderp.appspot.com",
+		messagingSenderId: "435710927543"
 	};
-
-    firebase.initializeApp(config);
+	firebase.initializeApp(config);
 
 
 
@@ -34,7 +33,7 @@ $(document).ready(function() {
     // Login form
     var $loginForm = $('#login-form');
     var $loginEmail = $('#login-email');
-    var $loginPassword = $('#login-pass');
+    var $loginPassword = $('#login-password');
     var $loginSubmit = $('#login-submit');
 
 
@@ -51,37 +50,41 @@ $(document).ready(function() {
 
 
 
-    // Watch Firebase auth object for changes
-    function authObserver() {
-        firebase.auth().onAuthStateChanged(function(user) {
-            // TODO Define views based on auth state?
-            if (user) {
-                currAuth = true;
-                console.log(user);
-                appView();
-            }
-            else {
-                currAuth = false;
-                console.log('no auth');
-                noAuthView();
-            }
-        });
-    }
 
-    authObserver();
+	// Watch Firebase auth object for changes
+	function authObserver() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			// TODO Define views based on auth state?
+			if (user) {
+				currAuth = true;
+				console.log(user);
+				appView();
+			}
+			else {
+				currAuth = false;
+				console.log('no auth');
+				noAuthView();
+			}
+		});
+	}
+
+	authObserver();
+
+
 
 
 
     // Auth functions
 
-    function registerUser(email, password) {
+    function registerUser() {
+    	var email = $('#register-email').val();
+		var password = $('#register-password').val();
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function(user, error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode + ': ' + errorMessage);
-                appView();
-            });
+			.catch(function (error) {
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorCode + ': ' + errorMessage);
+			});
     }
 
 
@@ -90,8 +93,11 @@ $(document).ready(function() {
         var email = $loginEmail.val();
         var password = $loginPassword.val();
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function(user) {
-
+            .then(function(user, error) {
+            	var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorCode + ': ' + errorMessage);
+				appView();
             });
     }
 
@@ -110,8 +116,6 @@ $(document).ready(function() {
 
 
 
-
-
     /*
      *
      * VIEW
@@ -125,6 +129,8 @@ $(document).ready(function() {
 
     var $registerDiv = $('#register-div');
     var $showRegister = $('#show-register');
+
+	var $signOutBtn = $('#sign-out');
 
 
 
@@ -154,6 +160,7 @@ $(document).ready(function() {
     function appView() {
         $authDiv.hide();
         $appDiv.delay().show();
+		$signOutBtn.delay().show();
     }
 
 
@@ -170,28 +177,23 @@ $(document).ready(function() {
 
 
 
-    $registerSubmit.submit(function() {
-        registerUser($registerEmail.val(), $registerPassword.val());
-    });
-
-
 
     $registerSubmit.click(function() {
-        registerUser($registerEmail.val(), $registerPassword.val());
-        appView()
+        registerUser();
     });
 
-
-
-    $loginSubmit.submit(function() {
-        signIn();
-    });
 
 
 
     $loginSubmit.click(function() {
         signIn();
     });
+
+
+
+	$signOutBtn.click(function() {
+		signOut();
+	});
 
 
 

@@ -25,6 +25,10 @@ body {
     border-bottom-color: #FFAB91;
 }
 
+div.page-header h1 {
+    
+}
+
 #derp {
     font-style: italic;
     color: #FF5722;
@@ -127,4 +131,8 @@ h1.main-timer {
 
 #dismiss {
     margin-top: 25px;
+}
+
+#sign-out {
+
 }
