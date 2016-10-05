@@ -18,6 +18,8 @@ $(document).ready(function() {
 	};
 	firebase.initializeApp(config);
 
+	var db = firebase.database();
+
 
 
 	$.material.init();
@@ -53,16 +55,18 @@ $(document).ready(function() {
 
 	// Watch Firebase auth object for changes
 	function authObserver() {
-		firebase.auth().onAuthStateChanged(function(user) {
+		firebase.auth().onAuthStateChanged(function(fbUser) {
 			// TODO Define views based on auth state?
-			if (user) {
+			if (fbUser) {
 				currAuth = true;
-				console.log(user);
+				console.log(fbUser);
+				user = fbUser.uid;
 				appView();
 			}
 			else {
 				currAuth = false;
 				console.log('no auth');
+				user = null;
 				noAuthView();
 			}
 		});
@@ -84,7 +88,18 @@ $(document).ready(function() {
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.log(errorCode + ': ' + errorMessage);
-			});
+			})
+			.then(function(fbUser) {
+				var uid = fbUser.uid;
+				var email = fbUser.email;
+				var updates = {
+					email: email,
+					active: false,
+					activeDerp: '',
+					completedCount: 0
+				};
+				db.ref('users/' + uid).update(updates);
+			})
     }
 
 
@@ -138,6 +153,7 @@ $(document).ready(function() {
 
     function noAuthView() {
         $appDiv.hide();
+		$signOutBtn.hide();
         $authDiv.show();
     }
 
@@ -164,6 +180,8 @@ $(document).ready(function() {
     }
 
 
+
+    // View actions
 
     $showRegister.click(function() {
         registerView();
@@ -198,10 +216,17 @@ $(document).ready(function() {
 
 
 
+	/*
+	 *
+	 * TIMER
+	 *
+	 */
+
+	var derpRef = db.ref('derps');
 
 
-	var min = 25; // pomodoro timer minutes initialized at 25
-	var sec = 0; // pomodoro timer seconds
+	var sliderMin = 25; // pomodoro timer minutes initialized at 25
+	var sliderSec = 0; // pomodoro timer seconds
 	var active = false; // flags whether pomodoro timer is running
 	var paused = false;
 	var complete = false;
@@ -235,10 +260,37 @@ $(document).ready(function() {
 		min: 1,
 		value: 25,
 		slide: function (event, ui) {
-			min = ui.value;
-			$tMin.text(min);
+			sliderMin = ui.value;
+			$tMin.text(sliderMin);
 		}
 	});
+
+
+
+	function createNewDerp(user, sliderMin) {
+
+		// A new derp entry
+		var newDerpData = {
+			min: sliderMin,
+			sec: 0,
+			bothCompleted: false,
+			breakCompleted: false,
+			derpCompleted: false,
+			breakActive: false
+		};
+
+		// Get key for new derp
+		var newDerpKey = derpRef.push().key()
+
+		// Write new derp's data to db and add derp's UID to user
+		var updates = {};
+		updates['/derps/' + newDerpKey] = newDerpData;
+		updates['/derps/' + newDerpKey + '/' + user] = true;
+		updates['/users/' + user + '/' + newDerpKey] = true;
+
+		return db.ref().update(updates);
+	}
+
 
 
 	function pauseCount() {
@@ -291,6 +343,8 @@ $(document).ready(function() {
 		$slider.fadeOut('slow', 'swing');
 		$toggleBtn.fadeOut('slow', 'swing');
 		$reset.fadeOut('slow', 'swing');
+
+		createNewDerp();
 
 		intv = setInterval(function () {
 			if (sec === 0) {

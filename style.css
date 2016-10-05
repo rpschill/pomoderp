@@ -4,7 +4,7 @@ body {
 }
 
 @media only screen and (max-width: 480px) {
-    .container {
+    .container#main {
         width: 100%;
         margin-left: auto;
         margin-right: auto;
@@ -12,8 +12,13 @@ body {
 }
 
 @media only screen and (min-width: 481px) {
-    .container {
+    .container#main {
         width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container#head .page-header {
+        width: 95%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -26,7 +31,7 @@ body {
 }
 
 div.page-header h1 {
-    
+    text-align: left;
 }
 
 #derp {
@@ -131,8 +136,4 @@ h1.main-timer {
 
 #dismiss {
     margin-top: 25px;
-}
-
-#sign-out {
-
 }
