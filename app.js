@@ -222,11 +222,13 @@ $(document).ready(function() {
 	 *
 	 */
 
-	var derpRef = db.ref('derps');
+	var derpPathRef = db.ref('derps');
+	var derp = {};
 
 
-	var sliderMin = 25; // pomodoro timer minutes initialized at 25
-	var sliderSec = 0; // pomodoro timer seconds
+	var min = null;
+	var sec = 0;
+
 	var active = false; // flags whether pomodoro timer is running
 	var paused = false;
 	var complete = false;
@@ -253,15 +255,15 @@ $(document).ready(function() {
 	var $dismiss = $('#dismiss');
 
 
-	// Slider to set timer minutes
+	// Slider to set timer length in minutes
 	var $slider = $('#pomo-slider').slider({
 		animate: 'slow',
 		max: 50,
 		min: 1,
 		value: 25,
 		slide: function (event, ui) {
-			sliderMin = ui.value;
-			$tMin.text(sliderMin);
+			min = ui.value;
+			$tMin.text(min);
 		}
 	});
 
@@ -271,25 +273,27 @@ $(document).ready(function() {
 
 		// A new derp entry
 		var newDerpData = {
-			min: sliderMin,
-			sec: 0,
 			bothCompleted: false,
 			breakCompleted: false,
 			derpCompleted: false,
-			breakActive: false
+			breakActive: false,
+			createdAt: firebase.database.ServerValue.TIMESTAMP
 		};
 
 		// Get key for new derp
-		var newDerpKey = derpRef.push().key()
+		var newDerpKey = firebase.database().ref('derps').push().key;
 
 		// Write new derp's data to db and add derp's UID to user
 		var updates = {};
 		updates['/derps/' + newDerpKey] = newDerpData;
-		updates['/derps/' + newDerpKey + '/' + user] = true;
 		updates['/users/' + user + '/' + newDerpKey] = true;
 
-		return db.ref().update(updates);
-	}
+		db.ref().update(updates);
+		db.ref().update({'/derps/' + newDerpKey + '/' + user}  true)
+
+		return newDerpKey;
+	};
+
 
 
 
@@ -301,6 +305,7 @@ $(document).ready(function() {
 		$start.delay('slow').fadeIn('slow', 'swing');
 		$reset.delay('slow').fadeIn('slow', 'swing');
 	};
+
 
 
 
@@ -327,6 +332,7 @@ $(document).ready(function() {
 
 
 
+
 	function checkTime(i) {
 		if (i < 10) {
 			i = '0' + i;
@@ -336,15 +342,14 @@ $(document).ready(function() {
 
 
 
-	function countDown() {
+
+	function countDown(min, sec) {
 
 		$start.fadeOut('slow', 'swing');
 		$pause.delay('slow').fadeIn('slow', 'swing');
 		$slider.fadeOut('slow', 'swing');
 		$toggleBtn.fadeOut('slow', 'swing');
 		$reset.fadeOut('slow', 'swing');
-
-		createNewDerp();
 
 		intv = setInterval(function () {
 			if (sec === 0) {
@@ -365,6 +370,14 @@ $(document).ready(function() {
 		}, 1000);
 	};
 
+
+
+
+	function initializeNewTimer() {
+
+		var derpKey = createNewDerp(user, min);
+		countDown(min, sec);
+	};
 
 
 
@@ -426,7 +439,7 @@ $(document).ready(function() {
 
 		$appDiv.fadeOut('slow', 'swing');
 		$successDiv.delay('slow').fadeIn('slow', 'swing');
-	}
+	};
 
 
 
@@ -458,24 +471,42 @@ $(document).ready(function() {
 		$appDiv.delay('slow').fadeIn('slow', 'swing');
 	};
 
+
+
+
 	$toggleBtn.click(function () {
 		checkToggle();
 	});
 
+
+
+
 	$start.click(function () {
-		countDown();
+		initializeNewTimer();
 	});
+
+
+
 
 	$pause.click(function () {
 		pauseCount();
 	});
 
+
+
+
 	$reset.click(function () {
 		resetCount();
 	});
 
+
+
+
 	$dismiss.click(function () {
 		dismissMessage();
 	});
+
+
+
 
 });
