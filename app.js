@@ -226,7 +226,7 @@ $(document).ready(function() {
 	var derp = {};
 
 
-	var min = null;
+	var min = 25;
 	var sec = 0;
 
 	var active = false; // flags whether pomodoro timer is running
@@ -289,7 +289,6 @@ $(document).ready(function() {
 		updates['/users/' + user + '/' + newDerpKey] = true;
 
 		db.ref().update(updates);
-		db.ref().update({'/derps/' + newDerpKey + '/' + user}  true)
 
 		return newDerpKey;
 	};
