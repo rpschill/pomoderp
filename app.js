@@ -143,7 +143,7 @@ $(document).ready(function() {
 	function getGravatar(email) {
 		var res = email.toLowerCase();
 		var hash = MD5(res);
-		userPhoto = "https://gravatar.com/avatar/" + hash + ".jpg?s=40";
+		userPhoto = "https://gravatar.com/avatar/" + hash + ".jpg?s=52";
 		console.log('hash:' + hash);
 	/*	user.updateProfile({
 			photoURL: 'https://gravatar.com/avatar/' + hash + '.jpg'
