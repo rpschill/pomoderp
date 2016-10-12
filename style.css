@@ -140,7 +140,7 @@ h1.main-timer {
 
 #gravatar {
     border-radius: 50%;
-        border: 2px solid #FF5722;
+    border: 2px solid #FF5722;
 }
 
 #gravatarBtn {
@@ -150,9 +150,19 @@ h1.main-timer {
     border-radius: 50%;
     padding: 0px;
     margin: 0px;
-    transition: opacity 0.75s;
 }
 
-#gravatarBtn:hover {
-    opacity: 0.72;
+#gravatarBtn:active, #gravatarBtn:focus {
+    outline: none;
+}
+
+.grow {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.grow:hover,
+.grow:focus {
+  transform: scale(1.05);
 }
